@@ -73,6 +73,7 @@ namespace AngularProjectAPI.Controllers
 
         // PUT: api/Comment/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [Authorize]
         [HttpPut("{id}")]
         public async Task<IActionResult> PutComment(int id, Comment comment)
         {
@@ -102,7 +103,6 @@ namespace AngularProjectAPI.Controllers
             return NoContent();
         }
 
-        [Authorize]
         // POST: api/Comment
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [Authorize]
@@ -115,8 +115,8 @@ namespace AngularProjectAPI.Controllers
             return CreatedAtAction("GetComment", new { id = comment.CommentID }, comment);
         }
 
-        [Authorize]
         // DELETE: api/Comment/5
+        [Authorize]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteComment(int id)
         {
