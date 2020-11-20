@@ -22,7 +22,6 @@ namespace AngularProjectAPI.Controllers
             _context = context;
         }
 
-        //don't authorize!
         // GET: api/Article
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Article>>> GetArticles()
@@ -158,6 +157,7 @@ namespace AngularProjectAPI.Controllers
         }
 
         // DELETE: api/Article/5
+        [Authorize]
         [HttpDelete("{id}")]
         public async Task<ActionResult<Article>> DeleteArticle(int id)
         {
