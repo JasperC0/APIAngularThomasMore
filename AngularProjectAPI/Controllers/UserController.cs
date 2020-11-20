@@ -41,9 +41,17 @@ namespace AngularProjectAPI.Controllers
         }
 
         // GET: api/User/Role/2
+        [Authorize]
         [HttpGet("Role/{roleId}")]
         public async Task<ActionResult<IEnumerable<User>>> GetUserArticles(int roleId)
         {
+            int roleID = int.Parse(User.Claims.FirstOrDefault(c => c.Type == "RoleID").Value);
+
+            if (roleID != 3)
+            {
+                return Unauthorized();
+            }
+
             var users = await _context.Users.Where(x => x.RoleID == roleId).ToListAsync();
 
             if (users == null)
