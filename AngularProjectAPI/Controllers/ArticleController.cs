@@ -29,6 +29,13 @@ namespace AngularProjectAPI.Controllers
             return await _context.Articles.ToListAsync();
         }
 
+        // GET: api/Article/last/number of articles you want
+        [HttpGet("Last/{number}")]
+        public async Task<ActionResult<IEnumerable<Article>>> GetPublishedArticlesLast(int number)
+        {
+            return await _context.Articles.Where(x =>x.ArticleStatusID == 1).OrderByDescending(x => x.ArticleID).Take(number).ToListAsync();
+        }
+
         // GET: api/Article/User/5
         [Authorize]
         [HttpGet("User/{userId}")]
@@ -179,6 +186,21 @@ namespace AngularProjectAPI.Controllers
             {
                 return NotFound();
             }
+
+             var articleComments = await _context.Comments.Where(x => x.ArticleID == article.ArticleID).ToListAsync();
+                var articleLikes = await _context.Likes.Where(x => x.ArticleID == article.ArticleID).ToListAsync();
+
+                foreach (Like like in articleLikes)
+                {
+                    _context.Likes.Remove(like);
+                    await _context.SaveChangesAsync();
+                }
+
+                foreach (Comment comment in articleComments)
+                {
+                    _context.Comments.Remove(comment);
+                    await _context.SaveChangesAsync();
+                }
 
             _context.Articles.Remove(article);
             await _context.SaveChangesAsync();

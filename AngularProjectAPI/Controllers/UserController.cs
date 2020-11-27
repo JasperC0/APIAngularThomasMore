@@ -121,6 +121,10 @@ namespace AngularProjectAPI.Controllers
             //getuser
             User user = _context.Users.Where(x => x.Username == userParam.Username).FirstOrDefault();
             /* Fetch the stored value */
+            if (user == null)
+            {
+                return BadRequest(new { message = "Username or password is incorrect" });
+            }
             string savedPasswordHash = user.Password;
             /* Extract the bytes */
             byte[] hashBytes = Convert.FromBase64String(savedPasswordHash);
