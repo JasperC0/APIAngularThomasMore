@@ -12,6 +12,6 @@ namespace AngularProjectAPI.Models
         public User User { get; set; }
         public int ArticleID { get; set; }
         public Article Article { get; set; }
-        public string text { get; set; }
+        public string Text { get; set; }
     }
 }

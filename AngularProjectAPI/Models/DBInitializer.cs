@@ -51,7 +51,7 @@ namespace AngularProjectAPI.Models
             context.SaveChanges();
 
             context.Comments.AddRange(
-                new Comment { text = "Messi FTW" , ArticleID =1, UserID=1}
+                new Comment { Text = "Messi FTW" , ArticleID =1, UserID=1}
                 );
             context.SaveChanges();
 
